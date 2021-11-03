@@ -162,9 +162,11 @@ public class MainForm {
 			FileOutputStream fos = new FileOutputStream("Calendario.txt");
 			OutputStreamWriter out = new OutputStreamWriter(fos);
 			for (Fecha fecha : torneo) {
+				out.write("Fecha " + (torneo.indexOf(fecha)+1)  + "\n");
 				for (int i = 0; i < fecha.getPartidos().size(); i++) {
 					out.write(fecha.getPartidos().get(i).toString());
 				}
+				
 			}
 			
 			out.close();
