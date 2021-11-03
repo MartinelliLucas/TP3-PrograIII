@@ -3,18 +3,29 @@ package interfaz;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
-import clases.Lectura;
 import javax.swing.JTextPane;
+
+import arbitraje.*;
+import data.Lectura;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class MainForm {
 
 	private JFrame frame;
+	private static ArrayList <Fecha> torneo;
+	private static TreeSet<String> equipos;
 
 	/**
 	 * Launch the application.
@@ -37,6 +48,9 @@ public class MainForm {
 	 */
 	public MainForm() {
 		initialize();
+
+		agregarEquipos();
+		crearTorneo();
 		
 	}
 
@@ -61,6 +75,12 @@ public class MainForm {
 		JButton leerCalendario = new JButton("Leer Calendario");
 		leerCalendario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					escribirCalendario();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Lectura leerarchivo = new Lectura();
 				calendarioOriginal.setText(leerarchivo.getCalendario());
 			}
@@ -70,6 +90,14 @@ public class MainForm {
 		frame.getContentPane().add(leerCalendario);
 		
 		JButton aplicarHeuristica = new JButton("Aplicar Heur\u00EDstica");
+		aplicarHeuristica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					Instancia arbitraje = new Instancia (torneo , equipos);
+					Solver solver = new Solver (arbitraje);
+			}
+
+
+		});
 		aplicarHeuristica.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		aplicarHeuristica.setBounds(522, 470, 116, 40);
 		frame.getContentPane().add(aplicarHeuristica);
@@ -83,5 +111,66 @@ public class MainForm {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(489, 14, 163, 20);
 		frame.getContentPane().add(lblNewLabel_1);
+	}
+	
+	private static void crearTorneo() {
+		torneo = new ArrayList <Fecha>();
+		Fecha fecha1 =new Fecha();
+		fecha1.agregarPartido(new Partido ("RIVER", "BOCA"));
+		fecha1.agregarPartido(new Partido ("INDEPENDIENTE", "RACING"));
+		fecha1.agregarPartido(new Partido ("SAN LORENZO", "HURACAN"));
+		
+		Fecha fecha2 = new Fecha();
+		fecha2.agregarPartido( new Partido ("RIVER", "INDEPENDIENTE"));
+		fecha2.agregarPartido( new Partido ("SAN LORENZO", "BOCA"));
+		fecha2.agregarPartido( new Partido ("HURACAN", "RACING"));
+		
+		Fecha fecha3 = new Fecha();
+		fecha3.agregarPartido( new Partido ("RIVER", "SAN LORENZO"));
+		fecha3.agregarPartido( new Partido ("HURACAN", "INDEPENDIENTE"));
+		fecha3.agregarPartido( new Partido ("RACING", "BOCA"));
+		
+		Fecha fecha4 = new Fecha();
+		fecha4.agregarPartido( new Partido ("RIVER", "HURACAN"));
+		fecha4.agregarPartido( new Partido ("RACING", "SAN LORENZO"));
+		fecha4.agregarPartido( new Partido ("BOCA", "INDEPENDIENTE"));
+		
+		Fecha fecha5 = new Fecha();
+		fecha5.agregarPartido( new Partido ("RIVER", "RACING"));
+		fecha5.agregarPartido( new Partido ("BOCA", "HURACAN"));
+		fecha5.agregarPartido( new Partido ("INDEPENDIENTE", "SAN LORENZO"));
+		
+		torneo.add(fecha1);
+		torneo.add(fecha2);
+		torneo.add(fecha3);
+		torneo.add(fecha4);
+		torneo.add(fecha5);
+	}
+
+	private static void agregarEquipos() {
+		equipos = new TreeSet <String>();
+		equipos.add("BOCA");
+		equipos.add("RIVER");
+		equipos.add("RACING");
+		equipos.add("INDEPENDIENTE");
+		equipos.add("SAN LORENZO");
+		equipos.add("HURACAN");
+	}
+	
+	private void escribirCalendario () throws IOException{
+		try {
+			FileOutputStream fos = new FileOutputStream("Calendario.txt");
+			OutputStreamWriter out = new OutputStreamWriter(fos);
+			for (Fecha fecha : torneo) {
+				for (int i = 0; i < fecha.getPartidos().size(); i++) {
+					out.write(fecha.getPartidos().get(i).toString());
+				}
+			}
+			
+			out.close();
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
