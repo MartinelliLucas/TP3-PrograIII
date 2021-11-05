@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Instancia {
 
-	private ArrayList<Fecha> _torneo;
-	private ArrayList<Equipo> _equipos;
-	private int[] _arbitros;
+	private ArrayList <Fecha> _torneo;
+	private ArrayList <Equipo> _equipos;
+	private int [] _arbitros;
 
 	public Instancia(ArrayList<Fecha> torneo, ArrayList<Equipo> equipos) {
 		_torneo = torneo;
@@ -21,7 +21,7 @@ public class Instancia {
 		for (int i = 0; i < _arbitros.length; i++) {
 			_arbitros[i] = i + 1;
 			for (Equipo equipo : _equipos) {
-				equipo.getArbitros().put(i, 0);
+				equipo.getArbitros().put(_arbitros[i], 0);
 			}
 		}
 		

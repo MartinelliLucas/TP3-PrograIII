@@ -9,6 +9,7 @@ public class Partido {
 	public Partido (Equipo equipo1 , Equipo equipo2) {
 		_equipo1 = equipo1;
 		_equipo2 = equipo2;
+		_arbitro = 0;
 	}
 	
 	public Equipo getEquipo1 () {
