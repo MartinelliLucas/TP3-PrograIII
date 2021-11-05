@@ -20,7 +20,11 @@ public class Instancia {
 		int[] ret = new int[_torneo.get(0).getPartidos().size()];
 		for (int i = 0; i < _arbitros.length; i++) {
 			_arbitros[i] = i + 1;
+			for (Equipo equipo : _equipos) {
+				equipo.getArbitros().put(i, 0);
+			}
 		}
+		
 		return ret;
 	}
 	
@@ -34,5 +38,17 @@ public class Instancia {
 
 	public int[] get_arbitros() {
 		return _arbitros;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		for (Fecha fecha : get_torneo()) {
+			sb.append("Fecha " + (get_torneo().indexOf(fecha)+1)  + "\n");
+			for (Partido partido : fecha.getPartidos()) {
+				sb.append(partido.toString()).append(" // Árbitro: ").append(partido.getArbitro()).append(System.lineSeparator());
+			}
+		}
+		return sb.toString();
 	}
 }

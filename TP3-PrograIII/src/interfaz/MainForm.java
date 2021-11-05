@@ -16,8 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
@@ -65,11 +63,11 @@ public class MainForm {
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane calendarioOriginal = new JTextPane();
-		calendarioOriginal.setBounds(104, 39, 226, 420);
+		calendarioOriginal.setBounds(72, 39, 291, 420);
 		frame.getContentPane().add(calendarioOriginal);
 		
 		JTextPane calendarioResultado = new JTextPane();
-		calendarioResultado.setBounds(458, 39, 226, 420);
+		calendarioResultado.setBounds(450, 39, 291, 420);
 		frame.getContentPane().add(calendarioResultado);
 		
 		JButton leerCalendario = new JButton("Leer Calendario");
@@ -93,13 +91,15 @@ public class MainForm {
 		aplicarHeuristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					Instancia arbitraje = new Instancia (torneo , equipos);
-					//Solver solver = Solver.solucion (arbitraje);
+					Solver solver = new Solver(arbitraje);
+					Instancia resultado = solver.solucion();
+					calendarioResultado.setText(resultado.toString());
 			}
 
 
 		});
 		aplicarHeuristica.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		aplicarHeuristica.setBounds(522, 470, 116, 40);
+		aplicarHeuristica.setBounds(536, 470, 116, 40);
 		frame.getContentPane().add(aplicarHeuristica);
 		
 		JLabel lblNewLabel = new JLabel("Calendario Original");
@@ -164,7 +164,7 @@ public class MainForm {
 			for (Fecha fecha : torneo) {
 				out.write("Fecha " + (torneo.indexOf(fecha)+1)  + "\n");
 				for (int i = 0; i < fecha.getPartidos().size(); i++) {
-					out.write(fecha.getPartidos().get(i).toString());
+					out.write(fecha.getPartidos().get(i).toString() + "\n");
 				}
 				
 			}

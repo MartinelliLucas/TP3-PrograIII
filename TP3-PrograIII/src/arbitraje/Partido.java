@@ -28,7 +28,7 @@ public class Partido {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(_equipo1.toString()).append(" - ").append(_equipo2.toString()).append(System.lineSeparator());
+		sb.append(_equipo1.toString()).append(" - ").append(_equipo2.toString());
 		return sb.toString();
 	}
 }
