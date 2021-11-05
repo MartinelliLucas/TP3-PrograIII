@@ -5,13 +5,14 @@ import java.util.Set;
 
 public class Solver {
 	
-	private ArrayList <Fecha> _torneo; 
-	private Set <String> _equipos;
-	private int [] _arbitros;
-	
+	private Instancia _instancia;
 	
 	public Solver (Instancia arbitraje) {
-		
+		_instancia = arbitraje;
 	}
 	
+	/*public Solver solucion () {
+		
+	}
+	*/
 }

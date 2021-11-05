@@ -1,16 +1,14 @@
 package arbitraje;
 
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Instancia {
 
 	private ArrayList<Fecha> _torneo;
-	private Set<String> _equipos;
+	private ArrayList<Equipo> _equipos;
 	private int[] _arbitros;
 
-	public Instancia(ArrayList<Fecha> torneo, TreeSet<String> equipos) {
+	public Instancia(ArrayList<Fecha> torneo, ArrayList<Equipo> equipos) {
 		_torneo = torneo;
 		_equipos = equipos;
 		_arbitros = new int[_torneo.get(0).getPartidos().size()];
@@ -25,5 +23,16 @@ public class Instancia {
 		}
 		return ret;
 	}
+	
+	public ArrayList<Fecha> get_torneo() {
+		return _torneo;
+	}
 
+	public ArrayList<Equipo> get_equipos() {
+		return _equipos;
+	}
+
+	public int[] get_arbitros() {
+		return _arbitros;
+	}
 }

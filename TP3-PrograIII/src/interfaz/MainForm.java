@@ -25,7 +25,7 @@ public class MainForm {
 
 	private JFrame frame;
 	private static ArrayList <Fecha> torneo;
-	private static TreeSet<String> equipos;
+	private static ArrayList<Equipo> equipos;
 
 	/**
 	 * Launch the application.
@@ -93,7 +93,7 @@ public class MainForm {
 		aplicarHeuristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					Instancia arbitraje = new Instancia (torneo , equipos);
-					Solver solver = new Solver (arbitraje);
+					//Solver solver = Solver.solucion (arbitraje);
 			}
 
 
@@ -116,29 +116,29 @@ public class MainForm {
 	private static void crearTorneo() {
 		torneo = new ArrayList <Fecha>();
 		Fecha fecha1 =new Fecha();
-		fecha1.agregarPartido(new Partido ("RIVER", "BOCA"));
-		fecha1.agregarPartido(new Partido ("INDEPENDIENTE", "RACING"));
-		fecha1.agregarPartido(new Partido ("SAN LORENZO", "HURACAN"));
+		fecha1.agregarPartido(new Partido (equipos.get(0), equipos.get(1)));
+		fecha1.agregarPartido(new Partido (equipos.get(3), equipos.get(2)));
+		fecha1.agregarPartido(new Partido (equipos.get(4), equipos.get(5)));
 		
 		Fecha fecha2 = new Fecha();
-		fecha2.agregarPartido( new Partido ("RIVER", "INDEPENDIENTE"));
-		fecha2.agregarPartido( new Partido ("SAN LORENZO", "BOCA"));
-		fecha2.agregarPartido( new Partido ("HURACAN", "RACING"));
+		fecha2.agregarPartido( new Partido (equipos.get(0), equipos.get(3)));
+		fecha2.agregarPartido( new Partido (equipos.get(4), equipos.get(1)));
+		fecha2.agregarPartido( new Partido (equipos.get(5), equipos.get(2)));
 		
 		Fecha fecha3 = new Fecha();
-		fecha3.agregarPartido( new Partido ("RIVER", "SAN LORENZO"));
-		fecha3.agregarPartido( new Partido ("HURACAN", "INDEPENDIENTE"));
-		fecha3.agregarPartido( new Partido ("RACING", "BOCA"));
+		fecha3.agregarPartido( new Partido (equipos.get(0), equipos.get(4)));
+		fecha3.agregarPartido( new Partido (equipos.get(5), equipos.get(3)));
+		fecha3.agregarPartido( new Partido (equipos.get(2), equipos.get(1)));
 		
 		Fecha fecha4 = new Fecha();
-		fecha4.agregarPartido( new Partido ("RIVER", "HURACAN"));
-		fecha4.agregarPartido( new Partido ("RACING", "SAN LORENZO"));
-		fecha4.agregarPartido( new Partido ("BOCA", "INDEPENDIENTE"));
+		fecha4.agregarPartido( new Partido (equipos.get(0), equipos.get(5)));
+		fecha4.agregarPartido( new Partido (equipos.get(2), equipos.get(4)));
+		fecha4.agregarPartido( new Partido (equipos.get(1), equipos.get(3)));
 		
 		Fecha fecha5 = new Fecha();
-		fecha5.agregarPartido( new Partido ("RIVER", "RACING"));
-		fecha5.agregarPartido( new Partido ("BOCA", "HURACAN"));
-		fecha5.agregarPartido( new Partido ("INDEPENDIENTE", "SAN LORENZO"));
+		fecha5.agregarPartido( new Partido (equipos.get(0), equipos.get(2)));
+		fecha5.agregarPartido( new Partido (equipos.get(1), equipos.get(5)));
+		fecha5.agregarPartido( new Partido (equipos.get(3), equipos.get(4)));
 		
 		torneo.add(fecha1);
 		torneo.add(fecha2);
@@ -148,13 +148,13 @@ public class MainForm {
 	}
 
 	private static void agregarEquipos() {
-		equipos = new TreeSet <String>();
-		equipos.add("BOCA");
-		equipos.add("RIVER");
-		equipos.add("RACING");
-		equipos.add("INDEPENDIENTE");
-		equipos.add("SAN LORENZO");
-		equipos.add("HURACAN");
+		equipos = new ArrayList <Equipo>();
+		equipos.add(new Equipo("RIVER"));
+		equipos.add(new Equipo("BOCA"));	
+		equipos.add(new Equipo("RACING"));
+		equipos.add(new Equipo ("INDEPENDIENTE"));
+		equipos.add(new Equipo ("SAN LORENZO"));
+		equipos.add(new Equipo("HURACAN"));
 	}
 	
 	private void escribirCalendario () throws IOException{
